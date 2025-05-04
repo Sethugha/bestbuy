@@ -68,12 +68,12 @@ def place_order(store_obj):
     while True:
         print("When you want to finish order, enter empty text.")
         display_products(store_obj)
-        users_choice = input(f"Which product # do you want? ")
+        users_choice = input("Which product # do you want? ")
         if users_choice == "":
             break
         product_list = store_obj.get_all_products()
         chosen_product = product_list[int(users_choice) - 1]
-        chosen_quantity = input(f"What amount do you want? ")
+        chosen_quantity = input("What amount do you want? ")
         if not chosen_quantity.isdigit():
             break
         shopping_list.append((chosen_product, int(chosen_quantity)))
@@ -83,6 +83,10 @@ def place_order(store_obj):
 
 
 def main():
+    """
+    Initialization of best_buy store object
+    and start of store user interface
+    """
     product_list = [Product("MacBook Air M2", price=1450, quantity=100),
                     Product("Bose QuietComfort Earbuds", price=250, quantity=500),
                     Product("Google Pixel 7", price=500, quantity=250)
