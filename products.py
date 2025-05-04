@@ -30,16 +30,19 @@ class Product:
     def show(self):
         return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
 
+
     def buy(self, quantity):
         if quantity < 0:
             raise Exception("No quantities below zero.")
         if self.quantity >= quantity:
             self.quantity -= quantity
-            total_price = quantity * self.price
-            if self.quantity == 0:
-                self.deactivate()
-            return total_price
-        raise Exception(f"Not enough {self.name} available.")
+        else:
+            quantity = self.quantity
+            self.quantity = 0
+        total_price = quantity * self.price
+        if self.quantity == 0:
+            self.deactivate()
+        return total_price
 
 
 def main():
