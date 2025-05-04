@@ -76,7 +76,7 @@ class Product:
 
     def activate(self):
         """sets product as available"""
-        self.activate = True
+        self.active = True
 
 
     def deactivate(self):
@@ -111,6 +111,7 @@ class Product:
 
 
 def main():
+    """Test of product class"""
     bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
     mac = Product("MacBook Air M2", price=1450, quantity=100)
 

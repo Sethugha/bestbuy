@@ -46,8 +46,7 @@ class Store:
         """removes product from store"""
         if product not in self.product_list:
             raise Exception("Product not in store. Maybe a typo?")
-        else:
-            self.product_list.remove(product)
+        self.product_list.remove(product)
 
 
     def get_total_quantity(self):
@@ -85,6 +84,7 @@ class Store:
 
 
 def main():
+    """Test for store class"""
     product_list = [Product("MacBook Air M2", price=1450, quantity=100),
                     Product("Bose QuietComfort Earbuds", price=250, quantity=500),
                     Product("Google Pixel 7", price=500, quantity=250),
