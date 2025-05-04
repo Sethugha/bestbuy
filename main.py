@@ -4,6 +4,11 @@ from store import Store
 
 
 def start(store_obj):
+    """
+    Displays store menu in a loop, main user interface for
+    store object
+    :param store_obj: store object of class store.
+    """
     while True:
         choice = display_menu()
         if choice == '1':
@@ -17,6 +22,12 @@ def start(store_obj):
 
 
 def display_products(store_obj):
+    """
+    Displays products available in store. Available are products
+    if they are in stock.
+    :param store_obj: store selling the products
+    :return: list of active aka available products
+    """
     product_list = store_obj.get_all_products()
     print("------")
     for product in product_list:
@@ -47,6 +58,12 @@ def display_menu():
 
 
 def place_order(store_obj):
+    """
+    Creates a shopping list containing product/amount pairs
+    which will be processed by the product objects themselves.
+    :param store_obj: store object selling the products
+    :return: total price of placed order.
+    """
     shopping_list = []
     while True:
         print("When you want to finish order, enter empty text.")
