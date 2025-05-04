@@ -1,29 +1,27 @@
 import sys
-import products
-import store
+from products import Product
+from store import Store
 
 
 def start(store_obj):
-
-    function_menu = {'1': "store_obj.get_all_products()",
-                     '2': store_obj.get_total_quantity,
-                     '3': place_order,
-                     '4': sys.exit
-                     }
-
     while True:
         choice = display_menu()
         if choice == '1':
-            products = store_obj.get_all_products()
-            for product in products:
-                product.show()
+            display_products(store_obj)
         elif choice == '2':
-            print(store_obj.get_total_quantity())
+            print(f"Total of {store_obj.get_total_quantity()} items in store")
         elif choice == '3':
             place_order(store_obj)
         else:
-            sys.exit()
+            break
 
+
+def display_products(store_obj):
+    product_list = store_obj.get_all_products()
+    print("------")
+    for product in product_list:
+        print(f"{product_list.index(product) + 1}. {product.show()}")
+    print("------")
 
 
 def display_menu():
@@ -38,7 +36,7 @@ def display_menu():
                 "3. Make an order",
                 "4. Quit"
                 ]
-
+    print("\n   Store Menu\n   ----------")
     for item in menuitems:
         print(item)
     while True:
@@ -51,22 +49,28 @@ def display_menu():
 def place_order(store_obj):
     shopping_list = []
     while True:
-        print("Enter 'quit' to leave")
-        users_choice = input(f"Choose a product of {str(store_obj.get_all_products())}: ")
-        if users_choice.lower() == "quit":
+        print("When you want to finish order, enter empty text.")
+        display_products(store_obj)
+        users_choice = input(f"Which product # do you want? ")
+        if users_choice == "":
             break
-        chosen_quantity = input(f"How much {users_choice} do you order? ")
-        shopping_list.append((users_choice, chosen_quantity))
+        product_list = store_obj.get_all_products()
+        chosen_product = product_list[int(users_choice) - 1]
+        chosen_quantity = input(f"What amount do you want? ")
+        if not chosen_quantity.isdigit():
+            break
+        shopping_list.append((chosen_product, int(chosen_quantity)))
+        print("Product added to list!\n")
     total_price = store_obj.order(shopping_list)
-    return f"The total price for your order is {total_price} dollars."
+    print(f"The total price for your order is {total_price} dollars.")
 
 
 def main():
-    product_list = [products.Product("MacBook Air M2", price=1450, quantity=100),
-                    products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-                    products.Product("Google Pixel 7", price=500, quantity=250)
+    product_list = [Product("MacBook Air M2", price=1450, quantity=100),
+                    Product("Bose QuietComfort Earbuds", price=250, quantity=500),
+                    Product("Google Pixel 7", price=500, quantity=250)
                     ]
-    best_buy = store.Store(product_list)
+    best_buy = Store(product_list)
     start(best_buy)
 
 
